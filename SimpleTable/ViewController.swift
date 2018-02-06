@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var restaurantNames = ["Cafe Deadend", "Homei", "Teakha", "Cafe Loisl", "Petite Oyster", "For Kee Restauraunt", "Po's Atelier", "Bourke Street Bakery", "Haigh's Chocolate", "Palomino Espresso", "Upstate", "Traif", "Graham Avenue Meats And Deli", "Waffle & Wolf", "Five Leaves", "Cafe Lore", "Confessional", "Barrafina", "Donostia", "Royal Oak", "CASK Pub and Kitchen"]
+    var restaurantNames: [String: String] = ["Cafe Deadend": "cafedeadend", "Homei": "homei", "Teakha": "teakha", "Cafe Loisl": "cafeloisl", "Petite Oyster": "petiteoyster", "For Kee Restauraunt": "forkeerestaurant", "Po's Atelier": "posatelier", "Bourke Street Bakery": "bourkestreetbakery", "Haigh's Chocolate": "haighschocolate", "Palomino Espresso": "palominoespresso", "Upstate": "upstate", "Traif": "traif", "Graham Avenue Meats And Deli": "grahamavenuemeats", "Waffle & Wolf": "wafflewolf", "Five Leaves": "fiveleaves", "Cafe Lore": "cafelore", "Confessional": "confessional", "Barrafina": "barrafina", "Donostia": "donostia", "Royal Oak": "royaloak", "CASK Pub and Kitchen": "caskpubkitchen"]
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return restaurantNames.count
@@ -20,7 +20,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let cellIdentifier = "Cell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         
-        cell.textLabel?.text = restaurantNames[indexPath.row]
+        let names = Array(restaurantNames.keys)
+        
+        let name = names[indexPath.row]
+        
+        cell.textLabel?.text = name
+        
+        if let image = restaurantNames[name] {
+            cell.imageView?.image = UIImage(named: image)
+        } else {
+            cell.imageView?.image = UIImage(named: "restaurant")
+        }
         
         return cell
     }
@@ -33,6 +43,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
     }
 
 
